@@ -1,49 +1,53 @@
 import React from 'react';
 import HornedBeast from './render';
 import jsonData from '../data.json';
-import CardColumns from 'react-bootstrap/CardColumns'
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+
 
 class Main extends React.Component {
-constructor (props){
+  constructor(props) {
     super(props);
     this.state = {
-        data : jsonData
+      data: jsonData
     };
-}
+  }
 
-render() {
+  render() {
+    // <Form >
+    //     <Form.Group>
+    //         <Form.Control as="select" size="lg">
+    //             <option>Large select</option>
+    //             <option>Large select</option>
+    //             <option>Large select</option>
+    //             <option>Large select</option>
+    //         </Form.Control>
+    // </Form>
+    return (
+      <div >
+        <Container fluid>
+          <Row className='justify-content-md-center'>
 
-const block= this.state.data.map(horn => {
-    return(
-        <div>
-            <HornedBeast
-             image_url={horn.image_url}
-             title={horn.title} 
-             description={horn.description}/>
-        </div>
-     
-    );
-});
+            {this.state.data.map(horn => {
+              return (
 
-return(
-    <div id='container'>
-        <CardColumns>{block} </CardColumns>
-    </div>
-)
+                <HornedBeast
+                  image_url={horn.image_url}
+                  title={horn.title}
+                  description={horn.description} />
 
-    // const looper = this.state.data.map(horn)=>{
-    //      return (
+              );
+            })
+            }
 
-    //            <div >
-    //              <HornedBeast image_url={horn.image_url} title={horn.title} description={horn.description}/>
-        
+          </Row>
+        </Container>
+
+      </div>
 
 
-    //           </div>
-    //         )
-    // }
-    // return (looper);
-};
+    )
+  }
 
 }
 

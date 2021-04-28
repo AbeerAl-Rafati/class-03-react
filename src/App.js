@@ -11,19 +11,19 @@ import Footer from './component/footer';
 
 
 
-class App  extends React.Component {
+class App extends React.Component {
   render() {
-      return (
-       <div>
-         <Header />
-         <Main />
-         <Footer />
-        
-       </div>
-        
-      )
-  };
-  
-  }
+    return (
+      <div>
+        <Header />
+        <Main />
+        <Footer />
 
-  export default App;
+      </div>
+
+    )
+  };
+
+}
+
+export default App;
