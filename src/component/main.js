@@ -1,6 +1,7 @@
 import React from 'react';
 import HornedBeast from './render';
 import jsonData from '../data.json';
+import CardColumns from 'react-bootstrap/CardColumns'
 
 class Main extends React.Component {
 constructor (props){
@@ -12,7 +13,7 @@ constructor (props){
 
 render() {
 
-return this.state.data.map(horn => {
+const block= this.state.data.map(horn => {
     return(
         <div>
             <HornedBeast
@@ -24,8 +25,11 @@ return this.state.data.map(horn => {
     );
 });
 
-
-
+return(
+    <div id='container'>
+        <CardColumns>{block} </CardColumns>
+    </div>
+)
 
     // const looper = this.state.data.map(horn)=>{
     //      return (
