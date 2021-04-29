@@ -12,10 +12,9 @@ Finish time:  approximately 10 am 28/4.2021
 
 Actual time needed to complete:i think because the ideas still new it should take a time to configure functionate it in a suitable way, it may take a little time from me i didn't make brakes also
 
-
 --------------------------------------------
 
-# Getting Started with Create React App
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
