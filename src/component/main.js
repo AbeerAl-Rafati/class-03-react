@@ -26,8 +26,8 @@ class Main extends React.Component {
 
   fileringfunction = () => {
     let one = this.state.data.filtes(num => {
-      return (num.horns === 1)
-    })
+      return (num.horns === 1);
+    });
     return one;
   }
 
