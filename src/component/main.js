@@ -3,7 +3,7 @@ import HornedBeast from './render';
 import jsonData from '../data.json';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Form from 'react-bootstrap/Form';
+import MyForm from './MyForm';
 
 
 class Main extends React.Component {
@@ -12,69 +12,79 @@ class Main extends React.Component {
     this.state = {
       data: jsonData,
       hornNum: ''
+
     };
   }
 
-  submitsForm = (event) => {
-    event.preventDefault();
-  };
 
-  update = (event) => {
-    this.setState({ hornNum: event.target.value });
-    console.log(this.state.hornNum);
-  };
 
-  fileringfunction = () => {
-    let one = this.state.data.filtes(num => {
-      return (num.horns === 1);
-    });
-    return one;
+  // filterData = (event) => {
+  //   if (this.state.hornNum !== 'All') {
+  //     this.setState({
+  //       data: jsonData.filter(item => item.horns === Number(this.state.hornNum))
+  //     });
+  // //   }
+  // else
+  //     this.setState({ data: jsonData });
+  // }
+  ///////////////////////////
+  filterData = () => {
+    return this.state.data.filter(item => item.horns === Number(this.state.hornNum)) ? this.update() : this.pageRender();
   }
 
+  update = (event) => {
+
+    console.log(event.target.value);
+  }
+
+
   render() {
-
+    console.log(this.update());
     return (
+
       <>
-        <div style={{ margin: '2rem 5rem' }}>
-          <Form onSubmit={this.submitsForm}>
-            <Form.Group>
-              <Form.Label>CHOOSE THE BEAST ACCORDING HORNS NUMBER IT HAS 🦄</Form.Label>
-              <Form.Control as="select" onChange={this.update} name="hornsnum" size="lg">
-                <option>CHOOSE HORN NUM</option>
-                <option >HAS ONE HORN - 1 🦄</option>
-                <option>HAS TWO HORNS - 2 🦄🦄</option>
-                <option>HAS THREE HORNS - 3 🦄🦄🦄</option>
-                <option>HAS HUNDRED HORNS - 100 (🦄🦄🦄.....100🦄)</option>
-              </Form.Control>
-            </Form.Group>
-          </Form>
+
+        <div>
+          <MyForm filterData={this.filterData}
+            hornNum={this.state.hornNum}
+            update={this.update}
+            data={this.state.data} />
         </div>
 
-        <div >
-          <Container fluid>
-            <Row className='justify-content-md-center'>
 
-              {this.state.data.map(horn => {
-                return (
+        <div> {this.pageRender()}</div>
 
-                  <HornedBeast
-                    image_url={horn.image_url}
-                    title={horn.title}
-                    description={horn.description} />
 
-                );
-              })
-              }
-
-            </Row>
-          </Container>
-
-        </div>
 
       </>
     );
   }
 
+
+  pageRender = () => {
+    return (
+      <div >
+        <Container fluid>
+          <Row className='justify-content-md-center'>
+
+            {this.state.data.map(horn => {
+              return (
+                <HornedBeast
+                  image_url={horn.image_url}
+                  title={horn.title}
+                  description={horn.description}
+                />
+
+              );
+            })
+            }
+
+          </Row>
+        </Container>
+
+      </div>
+    );
+  }
 }
 
 export default Main;
