@@ -46,7 +46,7 @@ class HornedBeast extends React.Component {
           <Card.Body>
             <Card.Title>{this.props.title}</Card.Title>
             <Card.Text>{this.props.description}</Card.Text>
-            <Card.Text>{this.state.likes} 👍 </Card.Text>
+            <Card.Text>{this.state.likes} <span role="img" aria-label="horn">👍</span> </Card.Text>
             <Button onClick={this.incereseLikes} variant="primary">Like</Button>
           </Card.Body>
         </Card>
