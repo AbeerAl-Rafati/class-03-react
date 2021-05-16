@@ -11,7 +11,7 @@ class MyForm extends React.Component {
       <div style={{ margin: '2rem 5rem' }}>
         <Form onSubmit={this.props.chosenHornNum}>
           <Form.Group>
-            <Form.Label>CHOOSE THE BEAST ACCORDING HORNS NUMBER IT HAS <span role="img" >🦄</span></Form.Label>
+            <Form.Label>CHOOSE THE BEAST ACCORDING HORNS NUMBER IT HAS <span role="img" aria-label="horn" >🦄</span></Form.Label>
             <Form.Control as="select" name="hornsnum" size="lg" custom defaultValue='All' >
               <option value='All'>CHOOSE HORN NUM</option>
               <option value='1' > ONE HORN - 1 </option>
