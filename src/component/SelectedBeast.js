@@ -12,9 +12,7 @@ class SelectedBeast extends React.Component {
     return (
 
       <>
-        {/* <Button variant="primary" onClick={this.props.popUp}>
-              Enlarge the pic ...
-            </Button> */}
+
 
         <Modal show={this.props.popUp} onHide={this.props.hidePopUp} animation={true}>
           <Modal.Header closeButton>

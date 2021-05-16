@@ -11,49 +11,64 @@ class Main extends React.Component {
     super(props);
     this.state = {
       data: jsonData,
-      hornNum: ''
+      hornNum: null
 
     };
   }
 
-
-
-  // filterData = (event) => {
-  //   if (this.state.hornNum !== 'All') {
-  //     this.setState({
-  //       data: jsonData.filter(item => item.horns === Number(this.state.hornNum))
-  //     });
-  // //   }
-  // else
-  //     this.setState({ data: jsonData });
-  // }
-  ///////////////////////////
-  filterData = () => {
-    return this.state.data.filter(item => item.horns === Number(this.state.hornNum)) ? this.update() : this.pageRender();
+  chosenHornNum = (e) => {
+    e.preventDefault();
+    this.setState({
+      hornNum: e.target.hornsnum.value
+    });
+    console.log(e.target.hornsnum.value);
   }
 
-  update = (event) => {
 
-    console.log(event.target.value);
-  }
+
+  allBeast = () => this.state.data.map((animal, i) => {
+    return (
+      <div key={i} >
+        <HornedBeast image_url={animal.image_url} title={animal.title} description={animal.description} />
+      </div>
+    );
+  });
+
+
+
+  filterdBeast = () => this.state.data.filter(Beast => {
+    return Beast.horns === parseInt(this.state.hornNum);
+  }).map((a, i) => {
+    return (
+      <div key={i} >
+        <HornedBeast image_url={a.image_url} title={a.title} description={a.description} />
+      </div>
+    );
+  });
+
 
 
   render() {
-    console.log(this.update());
+    console.log(this.allBeast());
     return (
 
       <>
 
         <div>
-          <MyForm filterData={this.filterData}
-            hornNum={this.state.hornNum}
-            update={this.update}
+          <MyForm
+
+            chosenHornNum={this.chosenHornNum}
             data={this.state.data} />
         </div>
 
 
-        <div> {this.pageRender()}</div>
-
+        <div >
+          <Container fluid>
+            <Row className='justify-content-md-center'>
+              {this.state.hornNum ? this.filterdBeast() : this.allBeast()}
+            </Row>
+          </Container>
+        </div>
 
 
       </>
@@ -61,30 +76,7 @@ class Main extends React.Component {
   }
 
 
-  pageRender = () => {
-    return (
-      <div >
-        <Container fluid>
-          <Row className='justify-content-md-center'>
 
-            {this.state.data.map(horn => {
-              return (
-                <HornedBeast
-                  image_url={horn.image_url}
-                  title={horn.title}
-                  description={horn.description}
-                />
-
-              );
-            })
-            }
-
-          </Row>
-        </Container>
-
-      </div>
-    );
-  }
 }
 
 export default Main;
