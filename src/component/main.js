@@ -3,7 +3,7 @@ import HornedBeast from './render';
 import jsonData from '../data.json';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Form from 'react-bootstrap/Form';
+import MyForm from './MyForm';
 
 
 class Main extends React.Component {
@@ -11,69 +11,71 @@ class Main extends React.Component {
     super(props);
     this.state = {
       data: jsonData,
-      hornNum: ''
+      hornNum: null
+
     };
   }
 
-  submitsForm = (event) => {
-    event.preventDefault();
-  };
-
-  update = (event) => {
-    this.setState({ hornNum: event.target.value });
-    console.log(this.state.hornNum);
-  };
-
-  fileringfunction = () => {
-    let one = this.state.data.filtes(num => {
-      return (num.horns === 1);
+  chosenHornNum = (e) => {
+    e.preventDefault();
+    this.setState({
+      hornNum: e.target.hornsnum.value
     });
-    return one;
+    console.log(e.target.hornsnum.value);
   }
 
-  render() {
 
+
+  allBeast = () => this.state.data.map((animal, i) => {
     return (
+      <div key={i} >
+        <HornedBeast image_url={animal.image_url} title={animal.title} description={animal.description} />
+      </div>
+    );
+  });
+
+
+
+  filterdBeast = () => this.state.data.filter(Beast => {
+    return Beast.horns === parseInt(this.state.hornNum);
+  }).map((a, i) => {
+    return (
+      <div key={i} >
+        <HornedBeast image_url={a.image_url} title={a.title} description={a.description} />
+      </div>
+    );
+  });
+
+
+
+  render() {
+    console.log(this.allBeast());
+    return (
+
       <>
-        <div style={{ margin: '2rem 5rem' }}>
-          <Form onSubmit={this.submitsForm}>
-            <Form.Group>
-              <Form.Label>CHOOSE THE BEAST ACCORDING HORNS NUMBER IT HAS 🦄</Form.Label>
-              <Form.Control as="select" onChange={this.update} name="hornsnum" size="lg">
-                <option>CHOOSE HORN NUM</option>
-                <option >HAS ONE HORN - 1 🦄</option>
-                <option>HAS TWO HORNS - 2 🦄🦄</option>
-                <option>HAS THREE HORNS - 3 🦄🦄🦄</option>
-                <option>HAS HUNDRED HORNS - 100 (🦄🦄🦄.....100🦄)</option>
-              </Form.Control>
-            </Form.Group>
-          </Form>
+
+        <div>
+          <MyForm
+
+            chosenHornNum={this.chosenHornNum}
+            data={this.state.data} />
         </div>
+
 
         <div >
           <Container fluid>
             <Row className='justify-content-md-center'>
-
-              {this.state.data.map(horn => {
-                return (
-
-                  <HornedBeast
-                    image_url={horn.image_url}
-                    title={horn.title}
-                    description={horn.description} />
-
-                );
-              })
-              }
-
+              {this.state.hornNum ? this.filterdBeast() : this.allBeast()}
             </Row>
           </Container>
-
         </div>
+
 
       </>
     );
   }
+
+
 
 }
 
